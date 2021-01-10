@@ -3,9 +3,6 @@ const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
-
-
-
 //profile creation done here 
 //TODO: make validations and test working...9jan
 
@@ -41,26 +38,6 @@ exports.createProfile = (req,res)=>{
 };
 
 
-//get all profiles
-
-
-exports.getAllProfiles = (req,res) => {
-
-    Profile.find().exec((err,profiles) => {
-
-        if(err || !profiles){
-            return res.status(400).json({
-               error:"Profiles not found!, Data error!"
-            });
-           
-       }
-       res.json(profiles);
-       
-    });
-
-};
-
-
 //get profile by id
 //test req..
 
@@ -87,8 +64,6 @@ exports.getProfile = (req,res) => {
 };
 
 
-
-
 //update profile route
 //TODO: make validations and test
 
@@ -110,4 +85,20 @@ exports.updateProfile =(req,res) => {
              res.json(profile);
         }
     );
+};
+
+
+//testing get all user data
+exports.getprofiles = (req,res) => {
+
+    Profile.find().exec((err,profiles) => {
+
+        if(err || !profiles){
+            return res.status(400).json({
+               error:"profiles  not found!, Data error!"
+            });
+    
+       }
+       res.json(profiles);
+    });
 };
