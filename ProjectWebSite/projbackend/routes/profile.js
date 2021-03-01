@@ -4,7 +4,7 @@ const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');    
 
-const {createProfile,getAllProfiles,getProfile,getProfileById,updateProfile} = require("../controllers/profile");
+const {createProfile,getProfile,getProfileById,updateProfile,getprofiles} = require("../controllers/profile");
 
 
 
@@ -45,8 +45,9 @@ router.put("/profile/:profileId",[
 
 
 //testng get all profiles  data (not working)
-//TODO: remove this route
 
-router.get("/profile/getallprofiles",getAllProfiles);
+
+router.get("/profiles",getprofiles);
+
 
 module.exports = router;

@@ -77,6 +77,8 @@ var profileSchema = new mongoose.Schema({
          trim:true
    },
 
+  //TODO: add boolean keys for social media eg. isIGUser = true/false;
+
    //social links
        IG:{//InstaGram
            type:String,
