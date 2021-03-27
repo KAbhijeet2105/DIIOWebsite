@@ -7,7 +7,10 @@ import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import UserDashBoard from "./user/UserDashBoard";
 import AdminDashBoard from "./user/AdminDashBoard";
+import UserProfile from "./user/Profile";
+import CreateProfile from "./admin/CreateProfile";
 
+import ManageProfile from './admin/ManageProfile';
 
 
 //import Dashboard from "../views/Dashboard.js";
@@ -30,6 +33,9 @@ const Routes = () => {
         <Route path="/user/signin" exact component={Signin} />
         <Route path="/admin/dashboard" exact component={AdminDashBoard} />
         <Route path="/user/dashboard" exact component={UserDashBoard} />
+        <Route path="/user/profile" exact component={UserProfile} />
+        <Route path="/user/createprofile" exact component={CreateProfile} />
+        <Route path="/user/manageprofile" exact component={ManageProfile} />
         
       </Switch>
     </BrowserRouter>

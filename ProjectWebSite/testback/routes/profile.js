@@ -4,33 +4,32 @@ const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');    
 
-const {createProfile,getProfile,getProfileById,updateProfile,getprofiles} = require("../controllers/profile");
+const {createProfile,getProfile,getProfileById,updateProfile,getprofiles,removeProfile} = require("../controllers/profile");
+const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
+const {getUserById} = require("../controllers/user");
 
 
-
- // regisrer user profile creation route here
-//TODO: add proper validation and test
-router.post("/profile/createProfile",[
-check("name","user name should be unique and more than 1 characters!").notEmpty(),
-   check("email","Unique email id is required!").isEmail(),
-    check("whatsAppNumber","whatsAppNumber should be of 10 Digits!").isLength({max:10}),
-],createProfile);
-
+router.param("userId",getUserById);
 
 //get profile id as param
 router.param("profileId",getProfileById);
 
-//get user by its id
-router.get("/profile/:profileId", getProfile);
 
+ // regisrer user profile creation route here
+//TODO: add proper validation and test //create user profile by its id // validation added
+router.post("/profile/createProfile/:userId",createProfile);
+//router.post("/profile/createProfile/:userId",isSignedIn,isAuthenticated,createProfile);
+
+
+
+//get profile by its id //maybe needs to change as per req ...
+router.get("/profile/:profileId", getProfile);
 
 
 
 //profile updation route here
 //TODO: add proper validation and test
-router.put("/profile/:profileId",[
-    check("name","user name should be unique and more than 1 characters!").notEmpty(),
-       check("email","Unique email id is required!").isEmail(),
+router.put("/profile/:profileId/:userId",isSignedIn,isAuthenticated,[
         check("whatsAppNumber","whatsAppNumber should be of 10 Digits!").isLength({max:10}),
     ],updateProfile);
 
@@ -46,8 +45,12 @@ router.put("/profile/:profileId",[
 
 //testng get all profiles  data (not working)
 
-
 router.get("/profiles",getprofiles);
+
+
+//delete route***********************new
+
+router.delete("/profile/:profileId/:userId",isSignedIn,isAuthenticated,removeProfile);
 
 
 module.exports = router;
