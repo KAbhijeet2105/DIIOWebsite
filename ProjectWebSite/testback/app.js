@@ -8,13 +8,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 
-//My Routes importing 
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const profileRoutes = require("./routes/profile");
-
-
-
 
 //Connecting to the database
 mongoose.connect(process.env.DATABASE,
@@ -29,6 +22,17 @@ mongoose.connect(process.env.DATABASE,
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+
+
+
+
+//My Routes importing 
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const profileRoutes = require("./routes/profile");
+
+
+
 
 //My Routes
 

@@ -3,8 +3,12 @@ const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
+
+
+
 //profile creation done here 
 //TODO: make validations and test working...9jan
+//updating profile according to user need eg. retrive data using user id
 
 
 exports.createProfile = (req,res)=>{
@@ -19,22 +23,19 @@ exports.createProfile = (req,res)=>{
 
     const profile = new Profile(req.body);
 
-    profile.save((err,profile) => {
-        if(err){
-            return res.status(400).json({
-                err:"Error: Unable to create profile in Database!!!"
+    //console.log(req.body)
+
+    profile.save((error,profile) => {
+        if(error){
+            return res.status(500).json({
+                err:"Error: Unable to create profile in Database!!!:-"+profile+" error: "+error
             });
         }
 
-       res.json(profile);
-        // res.json({
-        //     id:user._id,
-        //     name : user.user_name,
-        //     email:user.email,
-        //     roll:user.role,
-        //     verified: user.verified
-        // });
-    });  
+       res.status(200).json({
+           profile});
+       
+   });  
 };
 
 
@@ -65,7 +66,8 @@ exports.getProfile = (req,res) => {
 
 
 //update profile route
-//TODO: make validations and test
+//TODO: make validations and test //done 1
+// TODO: update might require to change ref.sec 9.5
 
 exports.updateProfile =(req,res) => {
 
@@ -101,4 +103,23 @@ exports.getprofiles = (req,res) => {
        }
        res.json(profiles);
     });
+};
+
+
+
+exports.removeProfile =(req,res) => {
+
+ const profile = req.profile;
+
+ profile.remove((err,profile) => {
+          if(err){
+              return res.status(400).json({
+                  error:"Failed to delete the profile."
+              });
+          }     
+           res.json({
+               message: "Profile deleted Successfully!!!"
+           });
+ });
+
 };
