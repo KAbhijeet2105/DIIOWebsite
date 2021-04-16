@@ -8,13 +8,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 
-//My Routes importing 
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const profileRoutes = require("./routes/profile");
-
-
-
 
 //Connecting to the database
 mongoose.connect(process.env.DATABASE,
@@ -30,11 +23,24 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
+
+
+
+//My Routes importing 
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const profileRoutes = require("./routes/profile");
+const productRoutes = require("./routes/product");
+
+
+
+
 //My Routes
 
 app.use("/api",authRoutes);
 app.use("/api",userRoutes);
 app.use("/api",profileRoutes);
+app.use("/api",productRoutes);
 
 
 // getting the  port

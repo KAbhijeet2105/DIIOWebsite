@@ -2,6 +2,7 @@ const Profile = require("../models/profile");
 const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
+const profile = require("../models/profile");
 
 
 
@@ -42,19 +43,59 @@ exports.createProfile = (req,res)=>{
 //get profile by id
 //test req..
 
-exports.getProfileById = (req,res,next,id) => {
+// exports.getProfileById = (req,res,next,profileId) => {
 
-    Profile.findById(id).exec((err,profile) => {
+//     Profile.findById(profileId).exec((err,profile) => {
+
+//         if(err || !profile){
+//             console.log(profile+" profile not found !! "+err);
+//             return res.status(400).json({error:profile+" profile not found !! "+err
+//              });
+//         }
+//         req.profile = profile;
+//         res.status(200).json({
+//             profile});
+//         next();
+//     });
+// };
+
+// //find profile by id new way
+exports.getProfileById = (req,res) => {
+
+    Profile.findOne({ _id: req.profile._id }).exec((err,profile) => {
 
         if(err || !profile){
-             return res.status(400).json({
-                error:"Profile not found !!"
+            console.log(profile+" profile not found !! "+err);
+            return res.status(400).json({error:profile+" profile not found !! "+err
              });
         }
         req.profile = profile;
-        next();
+        res.status(200).json({
+            profile});
+        //next();
     });
 };
+
+//retive profile by user email 
+// done checking working fine 10th  april
+exports.getProfileBymailId = (req,res) => {
+
+ Profile.findOne({uemail:req.params.mailid}).exec((err,profile) => {
+   
+    if(err||!profile)
+    {
+        console.log(profile+" profile not found !! "+err);
+        return res.status(400).json({error:profile+" profile not found !! "+err});
+    }
+     req.profile = profile;
+     res.status(200).json({
+        profile});
+    
+ });
+};
+
+
+
 
 
 
@@ -66,20 +107,21 @@ exports.getProfile = (req,res) => {
 
 
 //update profile route
-//TODO: make validations and test //done 1
-// TODO: update might require to change ref.sec 9.5
+
+// update profile with email id 
+//working fine 11Apr
 
 exports.updateProfile =(req,res) => {
 
-    Profile.findByIdAndUpdate(
-        { _id: req.profile._id},
+    Profile.findOneAndUpdate(
+        {uemail:req.params.mailid},
         {$set: req.body },
-        {new: true, useFindAndModify:false},
+         {new: true, useFindAndModify:false},
 
         (err,profile)=>{
             if(err){
-                return res.status(400).json({
-                    error:"You are not authorized user!!!"
+                console.log(profile+" profile not found !!unable to update profile!! "+err);
+        return res.status(400).json({error:profile+" profile not found !!unable to update profile!! "+err
                 });
             }
 
@@ -89,8 +131,37 @@ exports.updateProfile =(req,res) => {
     );
 };
 
+//old reference 
+
+// exports.updateProfile =(req,res) => {
+
+//     Profile.findByIdAndUpdate(
+//         { _id: req.profile._id},
+//         {$set: req.body },
+//         {new: true, useFindAndModify:false},
+
+//         (err,profile)=>{
+//             if(err){
+//                 return res.status(400).json({
+//                     error:"unable to update the profile please try again later!!!"
+//                 });
+//             }
+
+           
+//              res.json(profile);
+//         }
+//     );
+// };
+
+
+
+
+
+
 
 //testing get all user data
+
+
 exports.getprofiles = (req,res) => {
 
     Profile.find().exec((err,profiles) => {

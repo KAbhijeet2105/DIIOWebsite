@@ -51,8 +51,6 @@ export const authenticate = (data,next) => {
 
 };
 
-
-
 //signout route here
 
 export const signout = next => {
@@ -71,7 +69,6 @@ export const signout = next => {
 };
 
 
-
 //
 
 export const isAuthenticated = () => {
@@ -86,8 +83,4 @@ export const isAuthenticated = () => {
     else{
         return false;
     }
-
-
 };
-
-

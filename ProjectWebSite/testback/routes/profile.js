@@ -4,9 +4,10 @@ const { check , validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');    
 
-const {createProfile,getProfile,getProfileById,updateProfile,getprofiles,removeProfile} = require("../controllers/profile");
+const {createProfile,getProfile,getProfileById,getProfileBymailId,updateProfile,getprofiles,removeProfile} = require("../controllers/profile");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const {getUserById} = require("../controllers/user");
+
 
 
 router.param("userId",getUserById);
@@ -21,20 +22,20 @@ router.post("/profile/createProfile/:userId",createProfile);
 //router.post("/profile/createProfile/:userId",isSignedIn,isAuthenticated,createProfile);
 
 
+//get profile by users email id
+router.get("/profile/:mailid",getProfileBymailId);
 
 //get profile by its id //maybe needs to change as per req ...
-router.get("/profile/:profileId", getProfile);
+router.get("/profile/:profileId", getProfileById);
 
 
 
 //profile updation route here
 //TODO: add proper validation and test
-router.put("/profile/:profileId/:userId",isSignedIn,isAuthenticated,[
-        check("whatsAppNumber","whatsAppNumber should be of 10 Digits!").isLength({max:10}),
-    ],updateProfile);
+router.put("/profile/:mailid",updateProfile);
 
 //update the profile  by  user id
-////router.put("/profile/:profileId",isSignedIn, isAuthenticated, isAdmin,isVerified,updateProfile);
+////router.put("/profile/:profileId",isSignedIn, isAuthenticated, isAdmin,isVerified,[check("whatsAppNumber","whatsAppNumber should be of 10 Digits!").isLength({max:10}),]updateProfile);
 
 
 
@@ -48,7 +49,7 @@ router.put("/profile/:profileId/:userId",isSignedIn,isAuthenticated,[
 router.get("/profiles",getprofiles);
 
 
-//delete route***********************new
+//delete route************new*******
 
 router.delete("/profile/:profileId/:userId",isSignedIn,isAuthenticated,removeProfile);
 

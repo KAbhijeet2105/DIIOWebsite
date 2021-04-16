@@ -30,6 +30,7 @@ app.use(cors());
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const profileRoutes = require("./routes/profile");
+const productRoutes = require("./routes/product");
 
 
 
@@ -39,6 +40,7 @@ const profileRoutes = require("./routes/profile");
 app.use("/api",authRoutes);
 app.use("/api",userRoutes);
 app.use("/api",profileRoutes);
+app.use("/api",productRoutes);
 
 
 // getting the  port

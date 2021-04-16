@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, NavLink, Redirect, withRouter } from "react-router-dom";
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { signout, isAuthenticated } from "../auth/helper";
 
@@ -13,6 +13,19 @@ export class NavBar extends Component{
        var instances = M.Sidenav.init(elems, {});
      });
     }
+
+
+
+     performLogout = () => {
+     
+        signout(()=>{})
+        return  <Redirect to="/" />;
+        
+    
+    };
+
+
+
     render(){
       return(
      <div>
@@ -45,13 +58,41 @@ export class NavBar extends Component{
        <li><div class="divider"></div></li>
        {/* <li><a class="subheader">Subheader</a></li> */}
        {/* <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> */}
-       <li><a href="/admin/dashboard">Admin Dashboard</a></li>
-       <li><a href="/user/dashboard">User Dashboard</a></li>
-       <li><a href="#">Create Digital NoteCard</a></li>
-       <li><a href="#">View Digital NoteCard</a></li>
+       <li><a href="/admin/dashboard">Dashboard</a></li>
+       {/* <li><a href="/user/dashboard">User Dashboard</a></li> */}
+       {/* <li><a href="#">Create Digital NoteCard</a></li> */}
+       {/* <li><a href="#">View Digital NoteCard</a></li> */}
 
       {/* signout here  */}
-        {isAuthenticated() && (
+
+
+       {/* new logout  method */}
+
+         <li class="logout_op">
+           {isAuthenticated()&&
+           
+           (
+            <React.Fragment>
+            <a href="/">
+               <span
+             className = "text-warning"
+             onClick = {() => {
+              signout(()=>{})
+            }}
+             >
+              Logout
+             </span>
+             </a>
+            </React.Fragment>
+           )}
+
+         </li>
+     
+
+
+
+{/* old logout method  */}
+        {/* {isAuthenticated() && (
            <li class="logout_op">
              <a href="/">
              <span
@@ -60,11 +101,15 @@ export class NavBar extends Component{
                 signout(()=>{})
               }}
              >
-              Signout
+              Logout
              </span>
              </a>
            </li>
         )
-        } </ul> </div>); 
+        } */}
+        
+        
+        
+         </ul> </div>); 
       };
 };

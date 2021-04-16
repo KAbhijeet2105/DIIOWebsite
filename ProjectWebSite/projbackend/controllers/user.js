@@ -59,13 +59,8 @@ exports.getAllUsers = (req,res) => {
             return res.status(400).json({
                error:"Users not found!, Data error!"
             });
-       
        }
-   
-
        res.json(users);
-
-
     });
 
 };

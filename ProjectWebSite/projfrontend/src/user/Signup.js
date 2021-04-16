@@ -1,7 +1,6 @@
 import React, { useState }from "react";
 import "../styles.css";
-import {Link} from "react-router-dom";
-import { event } from "jquery";
+import {Redirect} from "react-router-dom";
 import { signup } from "../auth/helper";
 import { NavBar } from "../core/NavBar";
 
@@ -9,6 +8,7 @@ import { NavBar } from "../core/NavBar";
 
 const Signup = () => 
 {
+  //for account 
   const [values,setValues] = useState({
 
    user_name:"",
@@ -21,7 +21,12 @@ const Signup = () =>
    success: false
   });
 
+
+  
+//account
   const {user_name,email,password,role,service,verified,error,success} = values;
+
+
 
   const handleChanges = user_name => event => {
       setValues({...values,error:false,[user_name]:event.target.value});
@@ -51,7 +56,7 @@ const Signup = () =>
 
       }
     })
-    .catch(console.log("Error in signup!!!"))
+    .catch(console.log("Error in signup!!!"));
 
   }
 
@@ -59,18 +64,28 @@ const Signup = () =>
  //popup messsage
 
  const successMessage = () => {
+
     return(
       <div className="row">
       <div className="col-md-6 offset-sm-3 text-left">
   <div className = "alert alert-success"
-    style={{display:success ? "": "none"}}>
-
-      New account created successfully!! <Link to="/user/Signin"> Please login here </Link> !!
+    style={{display:success ? performRedirectOnsignup() : "none"}}>
+    {/* <Redirect to="/admin/dashboard" />; */}
+      New account created successfully!!please login here 
+      {/* <Link to="/user/Signin"> Please login here </Link> !! */}
     </div>
     </div>
     </div>);
 
  };
+
+const performRedirectOnsignup = () => {
+
+  //alert("New account created successfully!")
+   return <Redirect to="/user/signin" />; 
+
+};
+
 
 
  const errorMessage = () => {
@@ -97,8 +112,8 @@ return(
 
       <div className="container">
         <div className="jumbotron bg-white text-dark text-center">
-          <h2 className="display-4">Signup Page</h2>
-          <p className="lead">user registration here</p>
+          <h2 className="display-4">Digital Profile Signup Page</h2>
+          <p className="lead">Register here</p>
           
          <div class="container">
 
@@ -137,47 +152,12 @@ return(
         </div>
       </div>
       
-      <div class="row">
-        <div class="col s12">
-        <p class="blue-text">Please choose your service:</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-
-      <label className="btn  btn-primary ">
-        <input name="service" type="radio" id="card" autocomplete="off" />
-        Digital NoteCard
-      </label>
-      &emsp;
-  
-      <label className="btn btn-primary ">
-        <input name="service" type="radio" id="profile" autocomplete="off"/>
-        Digital Profile
-      </label>
-
-      {/* 
-       for disable the choice disable radio btn
-      <label className="btn  btn-primary ">
-        <input name="service" type="radio" id="card" autocomplete="off" disabled="disabled"/>
-        Digital NoteCard
-      </label> */}
-
-
-      {/* <label>
-        <input class="with-gap text-blue" name="group1" type="radio" color="blue" />
-        <span>Digital Profile</span>
-      </label> */}
-
-      </div>
-
-        </div>
-      </div>
+     
 
       {successMessage()}
       {errorMessage()}
+      {performRedirectOnsignup()}
+
 
          <div class="row">
           <div class="col s12">

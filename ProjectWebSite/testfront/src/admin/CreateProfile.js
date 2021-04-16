@@ -5,7 +5,7 @@ import { useState  } from 'react';
 import "../styles.css";
 import { Redirect } from 'react-router';
 import { createProfile } from './helper/adminapicall';
-import { useEffect } from 'react';
+
 
 // letest change : removed formdata and added old string json method
 
@@ -144,7 +144,7 @@ const handleChange = name => event => {
 const performRedirectOnCreateProfile = () => {
 
   alert(" profile created successfully!!")
-  return <Redirect to="/admin/dashboard" />;
+  {window.location.href="/user/profile"}
 
 };
 
@@ -349,11 +349,12 @@ const errorMessage = () => {
       {errorMessage()}
  */}
 
-             <button onClick={onSubmit} class="btn green waves-effect waves-light btn-large " type="submit" >Create Profile
+{isAuthenticated() &&  <button onClick={onSubmit} class="btn green waves-effect waves-light btn-large " type="submit" >Create Profile
               <i class="material-icons right">send</i>
-            </button>
+            </button>}
+            
 
-            <p className="text-black text-center">{JSON.stringify(values)}</p>
+            {/* <p className="text-black text-center">{JSON.stringify(values)}</p> */}
         </div>
       </div>
 
