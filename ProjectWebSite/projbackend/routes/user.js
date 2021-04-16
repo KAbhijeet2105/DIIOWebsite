@@ -13,8 +13,6 @@ router.get("/user/:userId",isSignedIn, isAuthenticated, getUser);
 router.put("/user/:userId",isSignedIn, isAuthenticated, updateUser);
 
 
-
-
 //testng get all user data 
 //TODO: remove this route
 router.get("/users",getAllUsers);

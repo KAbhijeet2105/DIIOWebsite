@@ -1,9 +1,9 @@
 import React, { useState }from "react";
 import "../styles.css";
-import {Link, Redirect } from "react-router-dom";
+import {Redirect } from "react-router-dom";
 
-import { signin, authenticate, isAuthenticated } from "../auth/helper";
-import { data } from "jquery";
+import { signin, authenticate, isAuthenticated } from "../auth/helper/index";
+
 import { NavBar } from "../core/NavBar";
 
 
@@ -49,7 +49,7 @@ const Signin = () => {
                 didRedirect:true,
               });
             });
-            performRedirect();
+            //performRedirect();
             //TODO:perform redirect and test it!
           }
           //redirecting code new add test...
@@ -61,28 +61,21 @@ const Signin = () => {
   
 
      var performRedirect = () => {
-      if( didRedirect){
+       if( didRedirect){
         if(user && user.role === "admin" ){
-            // return<p>ridrect to admin dashboard</p>
+          alert("Login successful!")
+          return <Redirect to="/admin/dashboard" />;
 
-            return(
-              <div className="row">
-              <div className="col-md-6 offset-sm-3 text-left">
-          <div className = "alert alert-success"
-            style={{display:success ? "": "none"}}>
-        
-              New account created successfully!! <Link to="/user/Signin"> Please login here </Link> !!
-            </div>
-            </div>
-            </div>);
+         
         }     
         else{
-         return<p>ridrect to user dashboard </p>
+          return <Redirect to="/" />;
         }
-      }////
+      }
 
       if(isAuthenticated()){
-        return <Redirect to="/" />;
+        alert("Login successful!")
+        return <Redirect to="/admin/dashboard" />;
       }
      };
 
@@ -119,8 +112,6 @@ const Signin = () => {
   
   };
   
-  
-  
   return(
   
     <div>
@@ -128,8 +119,8 @@ const Signin = () => {
 
       <div className="container">
         <div className="jumbotron bg-white text-dark text-center">
-          <h2 className="display-4">Signin Here</h2>
-          <p className="lead">Welcome back ...</p>
+          <h2 className="display-4">Digital Profile Login Page </h2>
+          <p className="lead">Welcome back User...</p>
           
          <div class="container">
 
@@ -157,6 +148,7 @@ const Signin = () => {
 
       {loadingMessage()}
       {errorMessage()}
+      {  performRedirect()}
 
       <div class="row">
         <div class="col s12">

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 var profileSchema = new mongoose.Schema({
 
+  //_id: { type: String },
+
   name:{
          type:String,
          required:true,
@@ -9,10 +11,10 @@ var profileSchema = new mongoose.Schema({
          trim:true
   },
 
-    email:{
+    uemail:{
         type:String,
          unique:true,
-            required:true,
+           required:true,
             maxlength: 60,
             trim:true
     },
@@ -35,40 +37,43 @@ var profileSchema = new mongoose.Schema({
       },
       //coverPic image
       coverImg:{
-        type:String
+        type:String,
+        default:"#",
 
         },
      //proile image
       profileImg:{
-         type:String
-
+         type:String,
+         default:"#",
          },
    //products
 
-   products:[
-        {
-            //product title
-              prodTitle:{
-                type:String,
-                maxlength:40
-            },
-            //product imgs
-            prodImg:{
-                type:Buffer,
-                contentType:String,
-            },
-            prodDesc:{
-                type:String,
-                maxlength:400
-            },
+//    products:[
+//         {
+//             //product title
+//               prodTitle:{
+//                 type:String,
+//                 maxlength:40
+//             },
+//             //product imgs
+//             prodImg:{
+//                 type:String,
+//                 default:"#",                
+//             },
+//             prodDesc:{
+//                 type:String,
+//                 maxlength:400
+//             },
 
-            prodLink:{
-                type:String,
-            },
-        }
-           //product descrip
-           //product link
-        ],
+//             prodLink:{
+//                 type:String,
+//                 default:"#",
+
+//             },
+//         }
+//            //product descrip
+//            //product link
+//         ],
 
    //location
 
@@ -77,26 +82,33 @@ var profileSchema = new mongoose.Schema({
          trim:true
    },
 
+  //TODO: add boolean keys for social media eg. isIGUser = true/false;
+
    //social links
        IG:{//InstaGram
            type:String,
            trim:true,
+           default:"#",
        },
        FB:{//FaceBook
         type:String,
         trim:true,
+        default:"#",
        },
        YT:{//YouTube
         type:String,
          trim:true,
+         default:"#",
         },
-       Li:{ //LinkedIn
+       LI:{ //LinkedIn
         type:String,
+        default:"#",
         trim:true,
          },
        WEB:{//WebSite
         type:String,
         trim:true,
+        default:"#"
         },
        
   

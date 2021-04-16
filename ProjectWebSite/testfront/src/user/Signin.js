@@ -1,9 +1,9 @@
 import React, { useState }from "react";
 import "../styles.css";
-import {Link, Redirect } from "react-router-dom";
+import {Redirect } from "react-router-dom";
 
 import { signin, authenticate, isAuthenticated } from "../auth/helper/index";
-import { data } from "jquery";
+
 import { NavBar } from "../core/NavBar";
 
 

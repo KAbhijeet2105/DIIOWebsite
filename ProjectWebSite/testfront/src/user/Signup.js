@@ -1,7 +1,6 @@
 import React, { useState }from "react";
 import "../styles.css";
-import {Link ,Redirect} from "react-router-dom";
-import { event } from "jquery";
+import {Redirect} from "react-router-dom";
 import { signup } from "../auth/helper";
 import { NavBar } from "../core/NavBar";
 
